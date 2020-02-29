@@ -8,7 +8,8 @@ module.exports = {
   findById,
   getAllSongs,
   addToFavorites,
-  removeSongFavorite
+  removeSongFavorite,
+  findFavoritesById
 };
 
 function find() {
@@ -44,11 +45,11 @@ function addToFavorites(data){
   .insert(data)
   .then(ids => {
     [ids] = ids
-    return findFavoriteById(data.user_id)
+    return findFavoritesById(data.user_id)
   })
 }
 
-function findFavoriteById(){
+function findFavoritesById(id){
   return db('favorites')
     .where('user_id', id)
     .join('songs', 'favorites.song_id', 'songs.track_id')
