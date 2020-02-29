@@ -1,0 +1,29 @@
+{
+  "name": "back_end",
+  "version": "1.0.0",
+  "description": "The humble people that work very hard in the background. We love you.",
+  "main": "knexfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spotifyrecommendationtrey/Back_End.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spotifyrecommendationtrey/Back_End/issues"
+  },
+  "homepage": "https://github.com/spotifyrecommendationtrey/Back_End#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "jest": "^25.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.20.10",
+    "nodemon": "^2.0.2",
+    "sqlite3": "^4.1.1",
+    "supertest": "^4.0.2"
+  }
+}
