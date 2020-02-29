@@ -3,7 +3,7 @@ const express = require("express")
 
 const authRouter = require('../auth/auth-router.js');
 const usersRouter = require("../users/users-router.js");
-const restricted = require('../auth/auth-router.js')
+const restricted = require('../auth/restricted-middleware.js')
 
 const server = express();
 
