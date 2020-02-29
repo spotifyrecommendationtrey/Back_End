@@ -1,6 +1,6 @@
 
 exports.up = function(knex) {
-  return knex.schema.createTable('user', tbl => {
+  return knex.schema.createTable('users', tbl => {
       tbl.increments();
 
       tbl.varchar("username", 128)
@@ -26,7 +26,7 @@ exports.up = function(knex) {
     .unsigned()
     .notNullable()
     .references('id')
-    .inTable('user')
+    .inTable('users')
     .onDelete('CASCADE')
     .onUpdate('CASCADE')
 
@@ -44,5 +44,5 @@ exports.down = function(knex, Promise) {
     return knex.schema
     .dropTableIfExists('favorites')
     .dropTableIfExists('songs')
-    .dropTableIfExists('user')
+    .dropTableIfExists('users')
 };

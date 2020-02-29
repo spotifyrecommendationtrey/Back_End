@@ -4,6 +4,7 @@
   "description": "The humble people that work very hard in the background. We love you.",
   "main": "knexfile.js",
   "scripts": {
+    "start": "node index.js",
     "server": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
