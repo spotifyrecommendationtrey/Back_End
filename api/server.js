@@ -12,4 +12,8 @@ server.use(express.json())
 server.use("/api/users", restricted, usersRouter);
 server.use('/api/auth', authRouter);
 
+server.get("/", (req, res) => {
+    res.send("It's alive!");
+  });
+  
 module.exports = server;
