@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
         res.send(err)});
 });
 
-router.get('/dashboard/songs', (req,res) => {
+router.get('/dashboard/songs',restricted, (req,res) => {
     Users.getAllSongs()
     .then(songs => {
         res.status(200).json(songs)
@@ -45,7 +45,7 @@ router.put('/dashboard/:id', restricted, (req, res) => {
         })
 })
 
-router.post('/dashboard/:id/favorites', (req,res) => {
+router.post('/dashboard/:id/favorites',restricted, (req,res) => {
 
     Users.addToFavorites(req.body)
     .then(favoriteList => {
@@ -57,7 +57,7 @@ router.post('/dashboard/:id/favorites', (req,res) => {
     })
 })
 
-router.get('/dashboard/:id/favorites', (req,res) => {
+router.get('/dashboard/:id/favorites',restricted, (req,res) => {
     const id = req.params.id
 
     Users.findFavoritesById(id)
@@ -70,7 +70,7 @@ router.get('/dashboard/:id/favorites', (req,res) => {
     })
 })
 
-router.delete('/dashboard/:id/favorites/:song_id', (req,res) => {
+router.delete('/dashboard/:id/favorites/:song_id',restricted, (req,res) => {
     const song = req.params.song_id
     const id = req.params.id
     Users.removeSongFavorite(id, song)
