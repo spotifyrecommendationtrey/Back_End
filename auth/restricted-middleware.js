@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
   if (token) {
     jwt.verify(token, jwtSecret, (err, decodedToken) => {
       if (err) {
-        res.status(401).json({ message: "Invalid Credentials" });
+        res.status(401).json({ message: "Tokens expire daily, make sure token is correct" });
       } else {
         req.decodedToken = decodedToken;
         next();

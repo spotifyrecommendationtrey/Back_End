@@ -9,7 +9,7 @@ const { jwtSecret } = require("../config/secrets.js");
 
 
 
-router.post('/register', (req, res) => {
+router.post('/register', userMiddleware, (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10); 
   user.password = hash;
@@ -23,7 +23,7 @@ router.post('/register', (req, res) => {
     });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', userMiddleware, (req, res) => {
   let { username, password } = req.body;
 
   Users.findBy({ username })
@@ -73,5 +73,17 @@ function generateToken(user) {
   };
 
   return jwt.sign(payload, jwtSecret, options);
+}
+
+function userMiddleware(req, res, next){
+  const username = req.body.username
+  const password = req.body.password
+  if(!username){
+    res.status(400).json({errorMessage: "Please provide username"})
+  } else if(!password){
+    res.status(400).json({errorMessage: "Please provide password"})
+  } else {
+    next()
+  }
 }
 module.exports = router;

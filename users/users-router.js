@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
         res.send(err)});
 });
 
-router.get('/dashboard/songs',restricted, (req,res) => {
+router.get('/dashboard/songs', (req,res) => {
     Users.getAllSongs()
     .then(songs => {
         res.status(200).json(songs)
@@ -31,9 +31,9 @@ router.put('/dashboard/:id', restricted, (req, res) => {
         .then(user => {
             if (user) {
                 Users.update(changes, id)
-                    .then(newUser => {
-                        res.status(202).json(newUser)
-                    })
+                    .then(
+                        res.status(202).json({Message: 'Username Succesfully Changed'})
+                    )
             } else {
                 res.status(404).json({ message: 'User with given id does not exist.' })
             }
@@ -45,7 +45,7 @@ router.put('/dashboard/:id', restricted, (req, res) => {
         })
 })
 
-router.post('/dashboard/:id/favorites',restricted, (req,res) => {
+router.post('/dashboard/:id/favorites',restricted,favMiddleware, (req,res) => {
 
     Users.addToFavorites(req.body)
     .then(favoriteList => {
@@ -76,9 +76,9 @@ router.delete('/dashboard/:id/favorites/:song_id',restricted, (req,res) => {
     Users.removeSongFavorite(id, song)
     .then(song => {
         if(song === 0){
-            res.status(404).json({message: 'Song with that id doesnt exist'})
+            res.status(404).json({errorMessage: 'Song with that id doesnt exist'})
         } else {
-            res.status(200).json({message: 'Song Deleted Succesfuly'})
+            res.status(200).json({errorMessage: 'Song Deleted Succesfuly'})
         }
     })
     .catch(error => {
@@ -86,4 +86,19 @@ router.delete('/dashboard/:id/favorites/:song_id',restricted, (req,res) => {
         res.status(500).json(error)
     })
 })
+
+function favMiddleware(req, res, next) {
+    const song = req.body.song_id
+    const user = req.body.user_id
+    if(!song){
+        return res.status(400).json({errorMessage: 'You are missing the song_id'})
+    } else if(!user) {
+        return res.status(400).json({errorMessage: 'You are missing the user_id'})
+    } else {
+        next()
+    }
+}
+
+
+
 module.exports = router;
