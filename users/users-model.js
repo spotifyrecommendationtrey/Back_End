@@ -4,7 +4,6 @@ module.exports = {
   add,
   update,
   find,
-  findBy,
   findById,
   getAllSongs,
   addToFavorites,
@@ -18,10 +17,6 @@ function find() {
 
 function update(changes, id){
   return db('users').where('users.id', id).update(changes)
-}
-
-function findBy(filter) {
-  return db('users').where(filter);
 }
 
 async function add(user) {
@@ -44,7 +39,6 @@ function addToFavorites(data){
   return db('favorites')
   .insert(data)
   .then(ids => {
-    [ids] = ids
     return findFavoritesById(data.user_id)
   })
 }
