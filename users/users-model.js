@@ -4,6 +4,7 @@ module.exports = {
   add,
   update,
   find,
+  findBy,
   findById,
   getAllSongs,
   addToFavorites,
@@ -23,6 +24,10 @@ async function add(user) {
   const [id] = await db('users').insert(user);
 
   return findById(id);
+}
+
+function findBy(filter) {
+  return db('users').where(filter);
 }
 
 function findById(id) {
