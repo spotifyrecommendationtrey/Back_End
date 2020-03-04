@@ -37,7 +37,7 @@ router.post('/login', userMiddleware, (req, res) => {
           token,
         });
       } else {
-        res.status(401).json({ message: "Invalid Credentials" });
+        res.status(401).json({ message: "Passwords do not match from register" });
       }
     })
     .catch(error => {
@@ -46,21 +46,6 @@ router.post('/login', userMiddleware, (req, res) => {
     });
 });
 
-router.get("/logout", (req, res) => {
-    if (req.session) {
-      req.session.destroy(err => {
-        if (err) {
-          res.status(500).json({
-            you: "can check out any time you like, but you can never leave",
-          });
-        } else {
-          res.status(200).json({ you: "logged out successfully" });
-        }
-      });
-    } else {
-      res.status(200).json({ bye: "felicia" });
-    }
-  });
   
 function generateToken(user) {
   const payload = {
