@@ -9,7 +9,6 @@ exports.seed = function(knex) {
         {track_id:2, artist_name: 'Travis Scott', track_name:"SICKO MODE"},
         {track_id:3, artist_name: 'Josh A, lamjakehill', track_name:"Gucci Coffin"},
         {track_id:4, artist_name: 'Logic, Eminem', track_name:"Homicide(feat.Eminem)"}
-
       ]);
     });
 };
