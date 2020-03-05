@@ -90,9 +90,9 @@ router.delete('/dashboard/:id/favorites/:song_id',restricted, (req,res) => {
 })
 
 router.get('/dashboard/search/', (req, res) => {
-const track_name = req.body.track_name
-if (track_name) {
-    axios.get(`https://sss-data-backend.herokuapp.com/search?track_name=${track_name}`)
+const Songname = req.body.track_name
+if (Songname) {
+    axios.get(`https://sss-data-backend.herokuapp.com/search?track_name=${Songname}`)
     .then(response => {
         res.status(200).json(response.data)
     }).catch(err => console.log(err))
@@ -101,6 +101,19 @@ if (track_name) {
 }
 });
 
+router.get('/dashboard/suggestions', (req, res) => {
+    const track = req.body.track_id
+    if (track) {
+        axios.get(`https://sss-data-backend.herokuapp.com/get-suggestions?seed=${track}`)
+        .then(response => {
+            console.log(response.data.results)
+            res.status(200).json(response.data.results)
+        }).catch(err => console.log(err))
+    } else {
+        return res.status(400).json({ message: "Bad request, My guy."})
+    }
+});
+    
 function favMiddleware(req, res, next) {
     const song = req.body.song_id
     const user = req.body.user_id
