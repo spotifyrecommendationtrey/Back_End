@@ -1,7 +1,8 @@
 const router = require('express').Router();
-
+const axios = require('axios');
 const Users = require('./users-model.js');
 const restricted = require('../auth/restricted-middleware.js');
+
 
 router.get('/', (req, res) => {
   Users.find()
@@ -45,6 +46,7 @@ router.put('/dashboard/:id', restricted, (req, res) => {
         })
 })
 
+
 router.post('/dashboard/:id/favorites',restricted,favMiddleware, (req,res) => {
 
     Users.addToFavorites(req.body)
@@ -86,6 +88,18 @@ router.delete('/dashboard/:id/favorites/:song_id',restricted, (req,res) => {
         res.status(500).json(error)
     })
 })
+
+router.get('/dashboard/search/', (req, res) => {
+const track_name = req.body.track_name
+if (track_name) {
+    axios.get(`https://sss-data-backend.herokuapp.com/search?track_name=${track_name}`)
+    .then(response => {
+        res.status(200).json(response.data)
+    }).catch(err => console.log(err))
+} else {
+    return res.status(400).json({ message: "Bad request, dood."})
+}
+});
 
 function favMiddleware(req, res, next) {
     const song = req.body.song_id
