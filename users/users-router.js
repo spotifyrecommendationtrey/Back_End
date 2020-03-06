@@ -89,7 +89,7 @@ router.delete('/dashboard/:id/favorites/:song_id',restricted, (req,res) => {
     })
 })
 
-router.get('/dashboard/search/', (req, res) => {
+router.get('/dashboard/search/:track_name', (req, res) => {
 const Songname = req.params.track_name
 if (Songname) {
     axios.get(`https://sss-data-backend.herokuapp.com/search?track_name=${Songname}`)
@@ -101,7 +101,7 @@ if (Songname) {
 }
 });
 
-router.get('/dashboard/suggestions', (req, res) => {
+router.get('/dashboard/suggestions:track_id', (req, res) => {
     const track = req.params.track_id
     if (track) {
         axios.get(`https://sss-data-backend.herokuapp.com/get-suggestions?seed=${track}`)
