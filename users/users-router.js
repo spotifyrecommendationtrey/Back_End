@@ -101,7 +101,7 @@ if (Songname) {
 }
 });
 
-router.get('/dashboard/suggestions:track_id', (req, res) => {
+router.get('/dashboard/suggestions/:track_id', (req, res) => {
     const track = req.params.track_id
     if (track) {
         axios.get(`https://sss-data-backend.herokuapp.com/get-suggestions?seed=${track}`)
